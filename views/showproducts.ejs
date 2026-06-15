@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products — Inventory</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="navbar-brand">📦 Inventory Manager</a>
+    <div class="navbar-right">
+        <span class="nav-user">👤 <%= user.username %></span>
+        <a href="/logout" class="btn btn-light btn-sm">Logout</a>
+    </div>
+</nav>
+
+<div class="page-wrapper">
+    <div class="page-header">
+        <h1 class="page-title">All Products</h1>
+        <a href="/products/new" class="btn btn-success">+ Add Product</a>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="glass-white filter-bar">
+        <form method="GET" action="/products" style="display:flex; gap:10px; flex-wrap:wrap; width:100%; align-items:center;">
+            <input type="text" name="search" placeholder="🔍 Search by name..."
+                value="<%= search || '' %>"
+                class="form-control" style="flex:1; min-width:180px; margin:0;" />
+
+            <select name="category" class="form-control" style="width:180px; margin:0;">
+                <option value="all">All Categories</option>
+                <option value="Electronics" <%= category === 'Electronics' ? 'selected' : '' %>>Electronics</option>
+                <option value="Clothing"    <%= category === 'Clothing'    ? 'selected' : '' %>>Clothing</option>
+                <option value="Food"        <%= category === 'Food'        ? 'selected' : '' %>>Food</option>
+                <option value="Furniture"   <%= category === 'Furniture'   ? 'selected' : '' %>>Furniture</option>
+                <option value="Other"       <%= category === 'Other'       ? 'selected' : '' %>>Other</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+            <a href="/products"><button type="button" class="btn btn-sm" style="background:#eee; color:#555;">Reset</button></a>
+        </form>
+    </div>
+
+    <!-- Table -->
+    <div class="glass-white" style="padding:0; overflow:hidden;">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(products.length === 0){ %>
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <div class="icon">🗃️</div>
+                                <p>No products found</p>
+                                <a href="/products/new">+ Add your first product</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <% } %>
+                    <% let i = 1; %>
+                    <% for(let product of products){ %>
+                    <tr>
+                        <td style="color:#aaa; font-weight:500;"><%= i++ %></td>
+                        <td style="font-weight:600; color:#333;"><%= product.name %></td>
+                        <td><span class="badge badge-blue"><%= product.category %></span></td>
+                        <td>
+                            <% if(product.quantity < 10){ %>
+                                <span class="badge badge-red">⚠️ <%= product.quantity %> Low</span>
+                            <% } else { %>
+                                <span class="badge badge-green"><%= product.quantity %></span>
+                            <% } %>
+                        </td>
+                        <td style="font-weight:600; color:#5566cc;">Rs. <%= Number(product.price).toLocaleString() %></td>
+                        <td>
+                            <div class="action-group">
+                                <form method="GET" action="/products/<%= product.id %>/edit">
+                                    <button class="btn btn-warning btn-sm">✏️ Edit</button>
+                                </form>
+                                <form method="POST" action="/products/<%= product.id %>?_method=DELETE">
+                                    <button type="submit" class="btn btn-danger btn-sm">🗑️ Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a href="/" class="back-link">← Back to Dashboard</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Inventory</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="navbar-brand">📦 Inventory Manager</a>
+    <div class="navbar-right">
+        <span class="nav-user">👤 <%= user.username %></span>
+        <a href="/logout" class="btn btn-light btn-sm">Logout</a>
+    </div>
+</nav>
+
+<div class="page-wrapper">
+    <div class="page-header" style="margin-top:1rem;">
+        <h1 class="page-title">Dashboard</h1>
+        <a href="/products/new" class="btn btn-success">+ Add Product</a>
+    </div>
+
+    <!-- Stat Cards -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem; margin-bottom:2rem;">
+
+        <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <div class="stat-number"><%= count %></div>
+            <div class="stat-label">Total Products</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">⚠️</div>
+            <div class="stat-number" style="background: linear-gradient(135deg,#f5576c,#f093fb); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">
+                <%= lowStock %>
+            </div>
+            <div class="stat-label">Low Stock Items</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-number" style="background: linear-gradient(135deg,#11998e,#38ef7d); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">
+                <%= count - lowStock %>
+            </div>
+            <div class="stat-label">Healthy Stock</div>
+        </div>
+
+    </div>
+
+    <!-- Quick Action -->
+    <div class="glass-white" style="padding:2rem; text-align:center;">
+        <p style="color:#888; margin-bottom:1.2rem; font-size:0.95rem;">Manage your inventory</p>
+        <a href="/products" class="btn btn-primary" style="font-size:1rem; padding:12px 30px;">
+            View All Products →
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
