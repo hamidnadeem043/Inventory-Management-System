@@ -5,7 +5,7 @@ A full-stack web application built with Node.js, Express.js, and MySQL that help
 ## 🌐 Live Demo
 
 **Application URL:**
-https://inventory-management-system-production-1962.up.railway.app
+inventory-management-system-production-1962.up.railway.app
 
 ---
 
