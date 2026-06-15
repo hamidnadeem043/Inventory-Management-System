@@ -50,7 +50,7 @@ app.post("/login", (req, res) => {
 
     
     const ADMIN_USER = "Hamid";
-    const ADMIN_PASS = "iamalpha";
+    const ADMIN_PASS = "hamid123";
 
     if (username === ADMIN_USER && password === ADMIN_PASS) {
         req.session.user = { username: ADMIN_USER };
