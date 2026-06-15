@@ -33,7 +33,7 @@ const connection = mysql.createConnection({
     port: process.env.MYSQLPORT
 });
 
-module.exports = connection;
+
 
 const isLoggedIn = (req, res, next) => {
     if (!req.session.user) return res.redirect("/login");
