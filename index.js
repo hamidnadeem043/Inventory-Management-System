@@ -6,6 +6,7 @@ const methodoverride = require("method-override");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const { faker } = require('@faker-js/faker');
+require("dotenv").config();
 
 app.use(methodoverride("_method"));
 app.use(express.urlencoded({ extended: true }));
@@ -19,13 +20,17 @@ app.use(session({
     saveUninitialized: false,
 }));
 
+const mysql = require("mysql2");
+
 const connection = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    database: process.env.MYSQL_DATABASE,
-    password: process.env.MYSQL_PASSWORD,
-    port: process.env.MYSQL_PORT
+    host: process.env.MYSQLHOST,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQLDATABASE,
+    port: process.env.MYSQLPORT
 });
+
+module.exports = connection;
 
 const isLoggedIn = (req, res, next) => {
     if (!req.session.user) return res.redirect("/login");
